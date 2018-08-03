@@ -86,7 +86,7 @@ As we can see, there is not need to created new class for any command we need to
 
 Let's see some classing examples from the Hystrix docs and how we can write them using ***HxFactory***.
 
-**Hystrix**
+Hello World **Hystrix**
 ```java
 public class CommandHelloWorld extends HystrixCommand<String> {
 
@@ -108,11 +108,48 @@ CommandHelloWorld helloWordCommand = new CommandHelloWorld("anicolaspp");
 
 assert helloWordCommand.execute().equals("Hello anicolaspp");
 ```
-**HxFactory**
+Hello World **HxFactory**
 ```java
 String name = "anicolaspp"; 
 
 val helloWordCommand = Command.create("hello", () -> "Hello " + name);
 
 assert helloWordCommand.execute().equals("Hello anicolaspp");
+```
+
+Commands with fallbacks **Hystrix**
+```java
+public class CommandHelloFailure extends HystrixCommand<String> {
+
+    private final String name;
+
+    public CommandHelloFailure(String name) {
+        super(HystrixCommandGroupKey.Factory.asKey("ExampleGroup"));
+        this.name = name;
+    }
+
+    @Override
+    protected String run() {
+        throw new RuntimeException("this command always fails");
+    }
+
+    @Override
+    protected String getFallback() {
+        return "Hello Failure " + name + "!";
+    }
+}
+
+CommandHelloFailure command = new CommandHelloFailure("me");
+
+assert command.execute().equals("Hello Failure me");
+```
+
+Commands with fallbacks **HxFactory**
+```java
+val command = Command.create(
+    "hello", 
+    () -> { throw new RuntimeException("this command always fails"); },
+    () -> "Hello Failure " + name + "!");
+
+assert command.execute().equals("Hello Failure " + name + "!");
 ```
