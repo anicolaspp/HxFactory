@@ -30,7 +30,7 @@
     <connection>scm:git:git://github.com:anicolaspp/HxFactory.git</connection>
     <developerConnection>scm:git@github.com:anicolaspp/HxFactory.git</developerConnection>
     <url>https://github.com/anicolaspp/HxFactory</url>
-    <tag>1.0.0</tag>
+    <tag>1.0.1</tag>
   </scm>
 
 
@@ -83,7 +83,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
+        <version>2.3.2</version>
       </plugin>
     </plugins>
   </build>
