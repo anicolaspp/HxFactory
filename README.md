@@ -86,7 +86,8 @@ As we can see, there is not need to created new class for any command we need to
 
 Let's see some classing examples from the Hystrix docs and how we can write them using ***HxFactory***.
 
-```Hystrix java
+**Hystrix**
+```java
 public class CommandHelloWorld extends HystrixCommand<String> {
 
     private final String name;
@@ -104,6 +105,14 @@ public class CommandHelloWorld extends HystrixCommand<String> {
 }
 
 CommandHelloWorld helloWordCommand = new CommandHelloWorld("anicolaspp");
+
+assert helloWordCommand.execute().equals("Hello anicolaspp");
+```
+**HxFactory**
+```java
+String name = "anicolaspp"; 
+
+val helloWordCommand = Command.create("hello", () -> "Hello " + name);
 
 assert helloWordCommand.execute().equals("Hello anicolaspp");
 ```
