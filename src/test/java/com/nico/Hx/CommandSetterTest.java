@@ -11,4 +11,15 @@ public class CommandSetterTest {
         
         assert command.getCommandKey().name().equals("command");
     }
+    
+    @Test
+    public void testSetterTimeout() {
+        val command = Command.create("command", () -> "");
+        
+        assert command
+                .getProperties()
+                .executionTimeoutInMilliseconds()
+                .get()
+                .equals(CommandSetter.defaultTimeoutInMilliseconds);
+    }
 }
