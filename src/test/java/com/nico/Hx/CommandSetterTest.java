@@ -9,7 +9,7 @@ public class CommandSetterTest {
     public void testSetterName() {
         val command = Command.create("testSetterName", () -> "");
         
-        assert command.getCommandKey().name().equals("command");
+        assert command.getCommandKey().name().equals("testSetterName");
     }
     
     @Test

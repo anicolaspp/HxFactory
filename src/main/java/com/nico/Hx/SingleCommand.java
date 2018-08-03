@@ -16,3 +16,6 @@ class SingleCommand<Result> extends HystrixCommand<Result> {
         return supplier.get();
     }
 }
+
+
+

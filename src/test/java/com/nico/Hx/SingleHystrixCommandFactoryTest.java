@@ -4,6 +4,8 @@ import com.netflix.hystrix.exception.HystrixRuntimeException;
 import lombok.val;
 import org.junit.Test;
 
+import static junit.framework.TestCase.fail;
+
 public class SingleHystrixCommandFactoryTest {
 
     @Test
@@ -46,47 +48,28 @@ public class SingleHystrixCommandFactoryTest {
 
         assert command.getProperties().circuitBreakerEnabled().get();
     }
-//
-//    @Test
-//    public void testBreakerOpensAndCloses() throws InterruptedException {
-//        val cmd1 = Command.factory().createWithName(
-//                "testBreakerOpensAndCloses",
-//                () -> "hello",
-//                () -> "bye bye");
-//
-//        cmd1.execute();
-//
-//        assert !cmd1.isCircuitBreakerOpen();
-//
-//        for (int i = 0; i < 1000; i++) {
-//            val failedCmd = Command.factory().createWithName(
-//                    "testBreakerOpensAndCloses",
-//                    () -> {
-//                        throw new RuntimeException("error");
-//                    },
-//                    () -> "fallback"
-//            );
-//
-//            failedCmd.execute();
-//        }
-//
-//
-//        Thread.sleep(1000);
-//
-//        assert cmd1.isCircuitBreakerOpen();
-//
-//        Thread.sleep(cmd1.getProperties().circuitBreakerSleepWindowInMilliseconds().get());
-//
-//        val resetCmd = Command.factory()
-//                .createWithName(
-//                        "testBreakerOpensAndCloses",
-//                        () -> "hello");
-//
-//        resetCmd.execute();
-//
-//        Thread.sleep(1000);
-//
-//        assert !cmd1.getProperties().circuitBreakerForceOpen().get();
-//        assert !cmd1.isCircuitBreakerOpen();
-//    }
+    
+    @Test
+    public void testTimeout() {
+        try {
+            val command = Command.create(
+                    "testTimeout",
+                    () -> {
+                        Thread.sleep(10000);
+                        
+                        return "";
+                    },
+                    1000);
+            
+            command.execute();
+            
+            fail("Command did not timeout");
+        } catch (HystrixRuntimeException e) {
+    
+            System.out.println(e);
+            
+            assert true;
+        }
+    }
 }
+
