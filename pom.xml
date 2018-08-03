@@ -19,6 +19,43 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <name>Nicolas A Perez</name>
+      <email>anicolaspp@gmail.com</email>
+      <organization>anicolaspp</organization>
+      <organizationUrl>https://github.com/anicolaspp</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/anicolaspp/HxFactory.git</connection>
+    <developerConnection>scm:git:git@github.com/anicolaspp/HxFactory.git</developerConnection>
+    <url>https://github.com/anicolaspp/HxFactory</url>
+    <tag>HEAD</tag>
+  </scm>
+
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/anicolaspp/HxFactory/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Travis</system>
+    <url>https://travis-ci.org/anicolaspp/HxFactory</url>
+  </ciManagement>
   
 
   <build>
@@ -59,7 +96,6 @@
     </repository>
   </repositories>
 
-
   <dependencies>
     <dependency>
       <groupId>com.netflix.hystrix</groupId>
@@ -82,5 +118,37 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <!-- GPG Signature on release -->
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  
 
 </project>
