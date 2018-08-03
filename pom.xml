@@ -28,7 +28,7 @@
   </developers>
   <scm>
     <connection>scm:git:git://github.com/anicolaspp/HxFactory.git</connection>
-    <developerConnection>scm:git:git@github.com/anicolaspp/HxFactory.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:anicolaspp/HxFactory.git</developerConnection>
     <url>https://github.com/anicolaspp/HxFactory</url>
     <tag>1.0.0</tag>
   </scm>
