@@ -17,7 +17,7 @@
       <url>https://opensource.org/licenses/MIT</url>
       <distribution>repo</distribution>
     </license>
-  </licenses>
+  </licenses>  
 
   <developers>
     <developer>
@@ -28,7 +28,7 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/anicolaspp/HxFactory.git</connection>
+    <connection>scm:git:git@github.com:anicolaspp/HxFactory.git</connection>
     <developerConnection>scm:git:git@github.com:anicolaspp/HxFactory.git</developerConnection>
     <url>https://github.com/anicolaspp/HxFactory</url>
     <tag>HEAD</tag>
