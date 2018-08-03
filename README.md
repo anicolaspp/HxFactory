@@ -40,7 +40,7 @@ val command = Command.create(
 command.execute();
 ```
 
-If you need to access to the same database to get one specific user, this is how to do it with ***Hystrix***
+If you need to access the same database to get one specific user, this is how to do it with ***Hystrix***
 
 ```java
 class GetUserCommand extends HystrixCommand<User> {
@@ -156,7 +156,7 @@ val command = Command.WithFallback.create(
 assert command.execute().equals("Hello Failure " + name + "!");
 ```
 
-Another good example is to use a fallback by calling a second command. 
+Another good example is to use a fallback by calling the second command. 
 
 Fallback: Cache via Network **HxFactory**
 ```java
@@ -175,13 +175,126 @@ val commandWithFallbackViaNetwork = Command.WithFallback.create(
 commandWithFallbackViaNetwork.execute();
 ```
 
-***HxFactory*** only exposes a way to create, with simplicity, *HystrixCommand<T>*, everything being returned from ***HxFactory*** is a ***HystrixCommand***.
-    
+***HxFactory*** only exposes a way to create, with simplicity, `HystrixCommand<T>`, everything being returned from ***HxFactory*** is a ***HystrixCommand***.
+   
+## Configuring Commands
 
+***HxFactory*** offers some other ways to create commands, for example, by specifying a command timeout. 
+
+```java
+HystrixCommand<String> command = Command.WithFallback.create(
+                    "testTimeout",
+                    () -> {
+                        Thread.sleep(10000);
+                        
+                        return "";
+                    },
+                    () -> "fallback"
+                    1000);
+            
+assert command.execute().equals("fallback");
+```
+Notice that the main function will timeout since it blocks for a time (10s) longer than the specified timeout (1s); then the fallback will be executed. 
+
+***HxFactory*** doesn't add anything on top of ***Hystrix*** to everything you expect to work with ***Hystrix*** will work when using ***HxFactory***. This includes circuit breakers, request caching, etc...
+
+The following test shows how the circuit breaker works.
+
+```java
+    @Test
+    public void testFallbackCommandOpensClose() throws InterruptedException {
+        val cmd1 = Command.WithFallback.create(
+                "testFallbackCommandOpensClose",
+                () -> "hello",
+                () -> "bye bye");
+        
+        cmd1.execute();
+        
+        assert !cmd1.isCircuitBreakerOpen();
+        
+        for (int i = 0; i < 1000; i++) {
+            val failedCmd = Command.WithFallback.create(
+                    "testFallbackCommandOpensClose",
+                    () -> {
+                        throw new RuntimeException("error");
+                    },
+                    () -> "fallback"
+            );
+            
+            assert failedCmd.execute().equals("fallback");
+        }
+        
+        Thread.sleep(1000);
+        
+        assert cmd1.isCircuitBreakerOpen();
+        
+        val ensureFallBackWhenOpenCommand = Command.WithFallback.create(
+                "testFallbackCommandOpensClose",
+                () -> "should not return this",
+                () -> "from fall back");
+        
+        assert ensureFallBackWhenOpenCommand.execute().equals("from fall back");
+    }
+```
+
+We can configure a `Command` to use caching in the following way.
+
+```java
+@Test
+    public void testCache() {
+        val command = Command.WithCacheContext
+                .WithCacheKey
+                .create("key",
+                        "testCache",
+                        () -> "hello"
+                );
+        
+        assert command.execute().equals("hello");
+        
+        val secondCommand = Command.WithCacheContext
+                .WithCacheKey
+                .create("key",
+                        "testCache",
+                        () -> "me"
+                );
+        
+        // notice we are executing second command but we are getting data from first one.
+        val result = secondCommand.execute();
+        
+        assert result.equals("hello");
+    }
+```
+
+Of course, you can have cache when using commands with fallback.
+
+```java
+ @Test
+    public void testCacheFallback() {
+        val command = Command.WithCacheContext.WithCacheKey.create(
+                "testCacheFallback",
+                "firstCommand",
+                () -> {
+                    throw new RuntimeException("Error");
+                },
+                () -> "fallback"
+        );
+
+        assert command.execute().equals("fallback");
+
+        val secondCommand = Command.WithCacheContext.WithCacheKey.create(
+                "testCacheFallback",
+                "secondCommand",
+                () -> "me"
+        );
+
+        assert secondCommand.execute().equals("fallback");
+    }
+```
+Notice that when running the second command, we are getting the result of the first command's fallback. This is given by the fact we are using the same cache key, so the second command retrieves the result from cache. 
 
 ### Some gotchas
 
-It is important to note that the action to be passed in is execute lazyly when you run the command. Mistakingly, you can do the following. 
+It is important to note that the action to be passed in is execute lazily when you run the command. Mistakingly, you can do the following. 
 
 ```java
 val getDataAsync = Command.WithFallback.create(
@@ -193,7 +306,7 @@ val getDataAsync = Command.WithFallback.create(
 CompletionStage<User> userFuture = getDataAsync.execute();
 ```
 
-If for any reason, `db.run` fails to execute, the fallback statement will never executed. THIS IS NOT A BUG since we instructing to create a `CompletableFuture` with some operation `db.run` to be execute at some point. From the point of view of the command, the operation `.supplyAsync` never fails, what fails is the execution or result of the following operation, but that is outside from the command context itself. 
+If for any reason, `db.run` fails to execute, the fallback statement will never be executed. THIS IS NOT A BUG since we instructing to create a `CompletableFuture` with some operation `db.run` to be executed at some point. From the point of view of the command, the operation `.supplyAsync` never fails, what fails is the execution or result of the following operation, but that is outside from the command context itself. 
 
 In order to avoid this, you could do the following
 
