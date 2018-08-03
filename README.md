@@ -153,3 +153,20 @@ val command = Command.create(
 
 assert command.execute().equals("Hello Failure " + name + "!");
 ```
+
+Another good example is to fallback by calling a second command. 
+
+Fallback: Cache via Network **HxFactory**
+```java
+val fallbackViaNetwork = Command.create(
+    "viaNetwork",
+    () -> MemCacheClient.getValue(id),   
+    () -> null
+);
+
+val commandWithFallbackViaNetwork = Command.create(
+    "primaryCommand",
+    () -> { throw new RuntimeException("force failure for example"); },   
+    () -> fallbackViaNetwork.execute()
+);
+```
