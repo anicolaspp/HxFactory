@@ -3,7 +3,7 @@ Factory library to create and run Hystrix commands with simplicity
 
 [![Build Status](https://travis-ci.org/anicolaspp/HxFactory.svg?branch=master)](https://travis-ci.org/anicolaspp/HxFactory) [![codecov](https://codecov.io/gh/anicolaspp/HxFactory/branch/master/graph/badge.svg)](https://codecov.io/gh/anicolaspp/HxFactory)
 
-## From Hystrix Command to HxCommand
+## From Hystrix Command to ***HxFactory***
 
 When using Hystrix, we need to define a command for every single interaction with our dependencies. 
 
@@ -29,7 +29,7 @@ GetUsersCommand command = new GetUsersCommand(...);
 
 command.execute();
 ```
-Using HxFactory we can reduce this to the following statement
+Using ***HxFactory*** we can reduce this to the following statement
 
 ```java
 val command = Command.create(
@@ -71,7 +71,7 @@ GetUserCommand getUserCommand = new getUserCommand(...);
 getUserCommand.execute();
 
 ```
-but when using HxFactory you can simply do
+but when using ***HxFactory*** you can simply do
 
 ```java
 val getUserCommand = Command.create(
@@ -80,4 +80,30 @@ val getUserCommand = Command.create(
 );
 
 getUserCommand.execute();
+```
+
+As we can see, there is not need to created new class for any command we need to run. 
+
+Let's see some classing examples from the Hystrix docs and how we can write them using ***HxFactory***.
+
+```Hystrix java
+public class CommandHelloWorld extends HystrixCommand<String> {
+
+    private final String name;
+
+    public CommandHelloWorld(String name) {
+        super(HystrixCommandGroupKey.Factory.asKey("ExampleGroup"));
+        this.name = name;
+    }
+
+    @Override
+    protected String run() {
+        // a real example would do work like a network call here
+        return "Hello " + name + "!";
+    }
+}
+
+CommandHelloWorld helloWordCommand = new CommandHelloWorld("anicolaspp");
+
+assert helloWordCommand.execute().equals("Hello anicolaspp");
 ```
