@@ -6,7 +6,7 @@
   <artifactId>HxFactory</artifactId>
   <packaging>jar</packaging>
   <name>HxFactory</name>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <description>Factory library to create and run Hystrix commands with simplicity</description>
   <url>https://github.com/anicolaspp/HxFactory</url>
 
@@ -30,7 +30,7 @@
     <connection>scm:git:git@github.com:anicolaspp/HxFactory.git</connection>
     <developerConnection>scm:git:git@github.com:anicolaspp/HxFactory.git</developerConnection>
     <url>https://github.com/anicolaspp/HxFactory</url>
-    <tag>HxFactory-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
 
