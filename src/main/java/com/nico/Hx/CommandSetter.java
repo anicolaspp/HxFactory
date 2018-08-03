@@ -13,7 +13,7 @@ public class CommandSetter {
         return getSetterFor(name, defaultTimeoutInMilliseconds);
     }
     
-    private static HystrixCommand.Setter getSetterFor(String name, int timeoutInMilliseconds) {
+    public static HystrixCommand.Setter getSetterFor(String name, int timeoutInMilliseconds) {
         return getSetterFor(name, "", timeoutInMilliseconds);
     }
     
