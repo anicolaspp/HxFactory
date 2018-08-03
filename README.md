@@ -292,9 +292,36 @@ Of course, you can have cache when using commands with fallback.
 ```
 Notice that when running the second command, we are getting the result of the first command's fallback. This is given by the fact we are using the same cache key, so the second command retrieves the result from cache. 
 
+### Complex Command Configuration
+
+If you need to configure a command is very custom way, ***HxFactory*** offers a way to create commands using a provided `HystrixCommand.Setter`. In this way, you can configure the command in any way you want. The following test shows this use case. 
+
+```java
+    @Test
+    public void testCommandFromSetter() {
+        val customSetter = CommandSetter
+                .getSetterFor("customSetterCommand")
+                .andCommandPropertiesDefaults(
+                        HystrixCommandProperties
+                                .defaultSetter()
+                                .withCircuitBreakerRequestVolumeThreshold(20)
+                                .withCircuitBreakerEnabled(false)
+                                .withFallbackEnabled(false)
+                );
+        
+        val command = Command.fromSetter(customSetter, () -> "hello");
+        
+        assert command.getProperties().circuitBreakerRequestVolumeThreshold().get() == 20;
+        assert command.getProperties().circuitBreakerEnabled().get() == false;
+        assert command.getProperties().fallbackEnabled().get() == false;
+        
+        assert command.execute().equals("hello");
+    }
+```
+
 ### Some gotchas
 
-It is important to note that the action to be passed in is execute lazily when you run the command. Mistakingly, you can do the following. 
+It is important to note that the action to be passed in is executed lazily when you run the command. Mistakingly, you can do the following. 
 
 ```java
 val getDataAsync = Command.WithFallback.create(
@@ -306,7 +333,7 @@ val getDataAsync = Command.WithFallback.create(
 CompletionStage<User> userFuture = getDataAsync.execute();
 ```
 
-If for any reason, `db.run` fails to execute, the fallback statement will never be executed. THIS IS NOT A BUG since we instructing to create a `CompletableFuture` with some operation `db.run` to be executed at some point. From the point of view of the command, the operation `.supplyAsync` never fails, what fails is the execution or result of the following operation, but that is outside from the command context itself. 
+If for any reason, `db.run` fails to execute, the fallback statement will never be executed. ***THIS IS NOT A BUG*** since we are instructing to create a `CompletableFuture` with some operation, `db.run`, to be executed at some point. From the point of view of the command, the operation `.supplyAsync` never fails, what fails is the execution or result of the following operation, but that is outside from the command context itself. 
 
 In order to avoid this, you could do the following
 
