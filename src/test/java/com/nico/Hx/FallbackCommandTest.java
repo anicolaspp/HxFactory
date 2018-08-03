@@ -80,3 +80,4 @@ public class FallbackCommandTest {
         assert ensureFallBackWhenOpenCommand.execute().equals("from fall back");
     }
 }
+

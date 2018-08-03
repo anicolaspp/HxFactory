@@ -25,5 +25,26 @@ public class Command {
             return new CommandWithFallback<>(fn, fallback, CommandSetter.getSetterFor(name, timeoutInMilliseconds));
         }
     }
+    
+    static class WithCacheContext {
+        
+        static class WithCacheKey {
+            
+            public static  <Result> HystrixCommand<Result> create(String cacheKey,
+                                                                  String commandName,
+                                                                  BreakerSupplier<Result> supplier) {
+                
+                return new CacheCommand<>(cacheKey, supplier, CommandSetter.getSetterFor(commandName));
+            }
+    
+            public static <Result> HystrixCommand<Result> create(String cacheKey,
+                                                                      String commandName,
+                                                                      BreakerSupplier<Result> supplier,
+                                                                      Supplier<Result> fallback) {
+                
+                return new CacheCommandWithFallback<>(cacheKey, supplier, fallback, CommandSetter.getSetterFor(commandName));
+            }
+        }
+    }
 }
 
