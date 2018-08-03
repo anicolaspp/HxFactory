@@ -24,4 +24,18 @@ class GetUsersCommand extends HystrixCommand<List<User>> {
         return db.run(getAllUsers);
     }
 }
+
+GetUsersCommand command = new GetUsersCommand(...);
+
+command.execute();
+```
+Uing HxFactory we can reduce this to the following statement
+
+```java
+val command = Command.create(
+    "db access", 
+    () -> db.run(...)
+    );
+
+command.execute();
 ```
