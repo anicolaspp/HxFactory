@@ -1,6 +1,7 @@
-package com.anicolaspp.Hx;
+package com.anicolaspp.Hx.conmands;
 
-import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+import com.anicolaspp.Hx.BreakerSupplier;
+import com.anicolaspp.Hx.RequestContextInitializer;
 
 class CacheCommand<Result> extends SingleCommand<Result> implements RequestContextInitializer {
     
@@ -16,17 +17,6 @@ class CacheCommand<Result> extends SingleCommand<Result> implements RequestConte
     @Override
     protected String getCacheKey() {
         return key;
-    }
-    
-    private void initRequestContextIfNeeded() {
-        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
-            HystrixRequestContext.initializeContext();
-        }
-    }
-    
-    @Override
-    public void initialize() {
-        initRequestContextIfNeeded();
     }
 }
 

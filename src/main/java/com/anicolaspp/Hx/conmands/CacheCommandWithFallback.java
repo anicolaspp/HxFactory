@@ -1,6 +1,7 @@
-package com.anicolaspp.Hx;
+package com.anicolaspp.Hx.conmands;
 
-import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+import com.anicolaspp.Hx.BreakerSupplier;
+import com.anicolaspp.Hx.RequestContextInitializer;
 
 import java.util.function.Supplier;
 
@@ -21,12 +22,5 @@ class CacheCommandWithFallback<Result> extends CommandWithFallback<Result> imple
     @Override
     protected String getCacheKey() {
         return key;
-    }
-    
-    @Override
-    public void initialize() {
-        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
-            HystrixRequestContext.initializeContext();
-        }
     }
 }

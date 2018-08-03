@@ -1,5 +1,7 @@
-package com.anicolaspp.Hx;
+package com.anicolaspp.Hx.conmands;
 
+import com.anicolaspp.Hx.BreakerSupplier;
+import com.anicolaspp.Hx.CommandSetter;
 import com.netflix.hystrix.HystrixCommand;
 
 import java.util.function.Supplier;
@@ -16,7 +18,11 @@ public class Command {
         return new SingleCommand<>(fn, CommandSetter.getSetterFor(name, timeoutInMilliseconds));
     }
     
-    static class WithFallback {
+    public static <Result> HystrixCommand<Result> fromSetter(HystrixCommand.Setter setter, BreakerSupplier<Result> fn) {
+        return new SingleCommand<>(fn, setter);
+    }
+    
+    public static class WithFallback {
         public static <Result> HystrixCommand<Result> create(String name, BreakerSupplier<Result> fn, Supplier<Result> fallback) {
             return new CommandWithFallback<>(fn, fallback, CommandSetter.getSetterFor(name));
         }
@@ -26,9 +32,9 @@ public class Command {
         }
     }
     
-    static class WithCacheContext {
+    public static class WithCacheContext {
         
-        static class WithCacheKey {
+        public static class WithCacheKey {
             
             public static  <Result> HystrixCommand<Result> create(String cacheKey,
                                                                   String commandName,

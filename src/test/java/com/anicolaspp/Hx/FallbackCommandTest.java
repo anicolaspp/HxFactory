@@ -1,5 +1,6 @@
 package com.anicolaspp.Hx;
 
+import com.anicolaspp.Hx.conmands.Command;
 import lombok.val;
 import org.junit.Test;
 

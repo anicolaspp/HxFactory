@@ -9,7 +9,7 @@ import lombok.val;
 public class CommandSetter {
     static Integer defaultTimeoutInMilliseconds = 1000;
     
-    static HystrixCommand.Setter getSetterFor(String name) {
+    public static HystrixCommand.Setter getSetterFor(String name) {
         return getSetterFor(name, defaultTimeoutInMilliseconds);
     }
     

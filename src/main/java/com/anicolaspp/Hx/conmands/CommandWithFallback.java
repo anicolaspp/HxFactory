@@ -1,17 +1,18 @@
-package com.anicolaspp.Hx;
+package com.anicolaspp.Hx.conmands;
 
+import com.anicolaspp.Hx.BreakerSupplier;
 import com.netflix.hystrix.HystrixCommand;
 
 import java.util.function.Supplier;
 
 class CommandWithFallback<Result> extends HystrixCommand<Result> {
     
-    protected final BreakerSupplier<Result> supplier;
-    protected final Supplier<Result> fallback;
+    private final BreakerSupplier<Result> supplier;
+    private final Supplier<Result> fallback;
     
-    protected CommandWithFallback(BreakerSupplier<Result> supplier,
-                                  Supplier<Result> fallback,
-                                  Setter setter) {
+    CommandWithFallback(BreakerSupplier<Result> supplier,
+                        Supplier<Result> fallback,
+                        Setter setter) {
         super(setter);
         
         this.supplier = supplier;

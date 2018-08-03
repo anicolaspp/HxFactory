@@ -1,5 +1,11 @@
 package com.anicolaspp.Hx;
 
-interface RequestContextInitializer {
-    void initialize();
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+
+public interface RequestContextInitializer {
+    default void initialize() {
+        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
+            HystrixRequestContext.initializeContext();
+        }
+    }
 }
