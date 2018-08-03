@@ -29,7 +29,7 @@ GetUsersCommand command = new GetUsersCommand(...);
 
 command.execute();
 ```
-Uing HxFactory we can reduce this to the following statement
+Using HxFactory we can reduce this to the following statement
 
 ```java
 val command = Command.create(
@@ -38,4 +38,46 @@ val command = Command.create(
     );
 
 command.execute();
+```
+
+If you need to access to the same database to get one specific user, you have to do when using pure Hystrix
+
+```java
+class GetUserCommand extends HystrixCommand<User> {
+    
+    
+    private Database db;
+    private final String id;
+    
+    protected GetUsersCommand(Database db, String id, HystrixCommandGroupKey group) {
+        super(group);
+        
+        this.db = db;
+        this.id = id;
+    }
+    
+    @Override
+    protected User run() throws Exception {
+        return db.run(getUserById(id));
+    }
+    
+    private Query getUserById(String id) {
+        ....
+    }
+}
+
+GetUserCommand getUserCommand = new getUserCommand(...);
+
+getUserCommand.execute();
+
+```
+but when using HxFactory you can simply do
+
+```java
+val getUserCommand = Command.create(
+    "getUser",
+    () -> db.run(getUserById(id))
+);
+
+getUserCommand.execute();
 ```
