@@ -319,7 +319,7 @@ If you need to configure a command is very custom way, ***HxFactory*** offers a 
     }
 ```
 
-### Some gotchas
+## Some gotchas
 
 It is important to note that the action to be passed in is executed lazily when you run the command. Mistakingly, you can do the following. 
 
