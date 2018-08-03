@@ -164,9 +164,40 @@ val fallbackViaNetwork = Command.create(
     () -> null
 );
 
-val commandWithFallbackViaNetwork = Command.create(
+val commandWithFallbackViaNetwork = Command.WithFallback.create(
     "primaryCommand",
     () -> { throw new RuntimeException("force failure for example"); },   
     () -> fallbackViaNetwork.execute()
 );
+
+commandWithFallbackViaNetwork.execute();
 ```
+
+### Some gotchas
+
+It is important to note that the action to be passed in is execute lazyly when you run the command. Mistakingly, you can do the following. 
+
+```java
+val getDataAsync = Command.WithFallback.create(
+    "async", 
+    () -> CompletableFuture.supplyAsync(() -> db.run(...)),
+    () -> CompletableFuture.completedFuture(someStaticData)
+);
+
+CompletionStage<User> userFuture = getDataAsync.execute();
+```
+
+If for any reason, `db.run` fails to execute, the fallback statement will never executed. THIS IS NOT A BUG since we instructing to create a `CompletableFuture` with some operation `db.run` to be execute at some point. From the point of view of the command, the operation `.supplyAsync` never fails, what fails is the execution or result of the following operation, but that is outside from the command context itself. 
+
+In order to avoid this, you could do the following
+
+```java
+val getDataAsync = Command.WithFallback.create(
+    "async", 
+    () ->  db.run(...),
+    () -> someStaticData
+);
+
+CompletionStage<User> userFuture = CompletableFuture.supplyAsync(() -> getDataAsync.execute());
+```
+In this case, if accessing the db fails, the command fallback will be executed and the result will be passed back to the concurrent task. 
