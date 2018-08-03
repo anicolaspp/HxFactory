@@ -7,6 +7,20 @@
   <groupId>com.nico.Hx</groupId>
   <artifactId>HxFactory</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>HxFactory</name>
+  <description>Factory library to create and run Hystrix commands with simplicity</description>
+  <url>https://github.com/anicolaspp/HxFactory</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+
   <build>
     <plugins>
       <plugin>
