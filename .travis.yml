@@ -2,8 +2,8 @@ language: java
 
 
 script:
-  -  mvn clean verify -q
-  - "mvn cobertura:cobertura"
+  - "mvn clean verify -q"
+  - "mvn cobertura:cobertura -q"
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
