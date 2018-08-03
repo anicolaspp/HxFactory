@@ -1,4 +1,4 @@
-package com.anicolaspp.Hx.conmands;
+package com.anicolaspp.Hx.commands;
 
 import com.anicolaspp.Hx.BreakerSupplier;
 import com.anicolaspp.Hx.CommandSetter;

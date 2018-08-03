@@ -1,6 +1,6 @@
 package com.anicolaspp.Hx;
 
-import com.anicolaspp.Hx.conmands.Command;
+import com.anicolaspp.Hx.commands.Command;
 import com.netflix.hystrix.HystrixCommandProperties;
 import lombok.val;
 import org.junit.Test;
