@@ -40,7 +40,7 @@ val command = Command.create(
 command.execute();
 ```
 
-If you need to access to the same database to get one specific user, you have to do when using pure Hystrix
+If you need to access to the same database to get one specific user, this is how to do it with ***Hystrix***
 
 ```java
 class GetUserCommand extends HystrixCommand<User> {
@@ -71,7 +71,7 @@ GetUserCommand getUserCommand = new getUserCommand(...);
 getUserCommand.execute();
 
 ```
-but when using ***HxFactory*** you can simply do
+Using ***HxFactory*** you can simply do
 
 ```java
 val getUserCommand = Command.create(
@@ -82,9 +82,9 @@ val getUserCommand = Command.create(
 getUserCommand.execute();
 ```
 
-As we can see, there is not need to created new class for any command we need to run. 
+As we can see, no new classes are needed, we can define the action as a lambda and pass it in. 
 
-Let's see some classing examples from the Hystrix docs and how we can write them using ***HxFactory***.
+Let's see some examples from the ***Hystrix*** docs and compare them to ***HxFactory***.
 
 Hello World **Hystrix**
 ```java
@@ -108,6 +108,7 @@ CommandHelloWorld helloWordCommand = new CommandHelloWorld("anicolaspp");
 
 assert helloWordCommand.execute().equals("Hello anicolaspp");
 ```
+
 Hello World **HxFactory**
 ```java
 String name = "anicolaspp"; 
@@ -146,19 +147,20 @@ assert command.execute().equals("Hello Failure me");
 
 Commands with fallbacks **HxFactory**
 ```java
-val command = Command.create(
+val command = Command.WithFallback.create(
     "hello", 
     () -> { throw new RuntimeException("this command always fails"); },
-    () -> "Hello Failure " + name + "!");
+    () -> "Hello Failure " + name + "!"
+);
 
 assert command.execute().equals("Hello Failure " + name + "!");
 ```
 
-Another good example is to fallback by calling a second command. 
+Another good example is to use a fallback by calling a second command. 
 
 Fallback: Cache via Network **HxFactory**
 ```java
-val fallbackViaNetwork = Command.create(
+val fallbackViaNetwork = Command.WithFallback.create(
     "viaNetwork",
     () -> MemCacheClient.getValue(id),   
     () -> null
@@ -172,6 +174,10 @@ val commandWithFallbackViaNetwork = Command.WithFallback.create(
 
 commandWithFallbackViaNetwork.execute();
 ```
+
+***HxFactory*** only exposes a way to create, with simplicity, *HystrixCommand<T>*, everything being returned from ***HxFactory*** is a ***HystrixCommand***.
+    
+
 
 ### Some gotchas
 
