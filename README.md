@@ -7,7 +7,7 @@ Factory library to create and run Hystrix commands with simplicity
 
 When using Hystrix, we need to define a command for every single interaction with our dependencies. 
 
-```
+```java
 class GetUsersCommand extends HystrixCommand<List<User>> {
     
     private static Query getAllUsers = ...
