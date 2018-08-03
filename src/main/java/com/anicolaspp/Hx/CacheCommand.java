@@ -1,4 +1,4 @@
-package com.nico.Hx;
+package com.anicolaspp.Hx;
 
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 

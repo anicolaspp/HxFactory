@@ -1,4 +1,4 @@
-package com.nico.Hx;
+package com.anicolaspp.Hx;
 
 @FunctionalInterface
 public interface BreakerSupplier<T> {
