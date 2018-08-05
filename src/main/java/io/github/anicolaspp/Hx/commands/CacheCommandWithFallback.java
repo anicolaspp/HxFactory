@@ -1,11 +1,11 @@
-package com.anicolaspp.Hx.commands;
+package io.github.anicolaspp.Hx.commands;
 
-import com.anicolaspp.Hx.BreakerSupplier;
-import com.anicolaspp.Hx.RequestContextInitializer;
+import io.github.anicolaspp.Hx.BreakerSupplier;
+import io.github.anicolaspp.Hx.RequestContextInitializer;
 
 import java.util.function.Supplier;
 
-class CacheCommandWithFallback<Result> extends CommandWithFallback<Result> implements RequestContextInitializer {
+class CacheCommandWithFallback<Result> extends CommandWithFallback<Result>  {
     
     private final String key;
     
@@ -15,8 +15,8 @@ class CacheCommandWithFallback<Result> extends CommandWithFallback<Result> imple
         
         super(supplier, fallback, setter);
         this.key = key;
-        
-        initialize();
+    
+        RequestContextInitializer.initializeRequestContext();
     }
     
     @Override

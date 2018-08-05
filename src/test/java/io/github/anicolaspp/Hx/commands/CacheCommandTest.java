@@ -1,6 +1,5 @@
-package com.anicolaspp.Hx;
+package io.github.anicolaspp.Hx.commands;
 
-import com.anicolaspp.Hx.commands.Command;
 import lombok.val;
 import org.junit.Test;
 
@@ -34,7 +33,7 @@ public class CacheCommandTest {
     public void testCacheFallback() {
         val command = Command.WithCacheContext.WithCacheKey.create(
                 "testCacheFallback",
-                "testCache",
+                "firstCommand",
                 () -> {
                     throw new RuntimeException("Error");
                 },
@@ -45,7 +44,7 @@ public class CacheCommandTest {
 
         val secondCommand = Command.WithCacheContext.WithCacheKey.create(
                 "testCacheFallback",
-                "testCache",
+                "secondCommand",
                 () -> "me"
         );
 

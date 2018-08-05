@@ -1,4 +1,4 @@
-package com.anicolaspp.Hx;
+package io.github.anicolaspp.Hx.Setters;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
@@ -7,7 +7,7 @@ import com.netflix.hystrix.HystrixCommandProperties;
 import lombok.val;
 
 public class CommandSetter {
-    static Integer defaultTimeoutInMilliseconds = 1000;
+    public static Integer defaultTimeoutInMilliseconds = 1000;
     
     public static HystrixCommand.Setter getSetterFor(String name) {
         return getSetterFor(name, defaultTimeoutInMilliseconds);

@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.nico.Hx</groupId>
+  <groupId>io.github.anicolaspp</groupId>
   <artifactId>HxFactory</artifactId>
   <packaging>jar</packaging>
   <name>HxFactory</name>
@@ -216,7 +216,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <gpg.passphrase>[your_gpg_passphrase]</gpg.passphrase>
+        <gpg.passphrase>nperez2k12</gpg.passphrase>
       </properties>
     </profile>
   </profiles>

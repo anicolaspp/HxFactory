@@ -1,6 +1,5 @@
-package com.anicolaspp.Hx;
+package io.github.anicolaspp.Hx.commands;
 
-import com.anicolaspp.Hx.commands.Command;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import lombok.val;
 import org.junit.Test;

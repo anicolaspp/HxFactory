@@ -1,6 +1,6 @@
-package com.anicolaspp.Hx.commands;
+package io.github.anicolaspp.Hx.commands;
 
-import com.anicolaspp.Hx.BreakerSupplier;
+import io.github.anicolaspp.Hx.BreakerSupplier;
 import com.netflix.hystrix.HystrixCommand;
 
 class SingleCommand<Result> extends HystrixCommand<Result> {
