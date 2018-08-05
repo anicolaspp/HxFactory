@@ -1,8 +1,6 @@
 language: java
 
-
 script:
-  - "mvn clean verify -q"
   - "mvn cobertura:cobertura -q"
 
 after_success:
