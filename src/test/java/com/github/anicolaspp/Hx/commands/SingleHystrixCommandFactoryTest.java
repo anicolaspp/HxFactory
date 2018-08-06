@@ -1,4 +1,4 @@
-package io.github.anicolaspp.Hx.commands;
+package com.github.anicolaspp.Hx.commands;
 
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import lombok.val;

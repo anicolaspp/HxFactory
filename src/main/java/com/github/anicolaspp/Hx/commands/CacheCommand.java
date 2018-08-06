@@ -1,7 +1,7 @@
-package io.github.anicolaspp.Hx.commands;
+package com.github.anicolaspp.Hx.commands;
 
-import io.github.anicolaspp.Hx.BreakerSupplier;
-import io.github.anicolaspp.Hx.RequestContextInitializer;
+import com.github.anicolaspp.Hx.BreakerSupplier;
+import com.github.anicolaspp.Hx.RequestContextInitializer;
 
 class CacheCommand<Result> extends SingleCommand<Result> implements RequestContextInitializer {
     

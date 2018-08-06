@@ -1,6 +1,6 @@
-package io.github.anicolaspp.Hx.commands;
+package com.github.anicolaspp.Hx.commands;
 
-import io.github.anicolaspp.Hx.Setters.CommandSetter;
+import com.github.anicolaspp.Hx.Setters.CommandSetter;
 import lombok.val;
 import org.junit.Test;
 

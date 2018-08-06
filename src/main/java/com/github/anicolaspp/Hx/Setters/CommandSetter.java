@@ -1,4 +1,4 @@
-package io.github.anicolaspp.Hx.Setters;
+package com.github.anicolaspp.Hx.Setters;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;

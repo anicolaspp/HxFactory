@@ -1,4 +1,4 @@
-package io.github.anicolaspp.Hx.commands;
+package com.github.anicolaspp.Hx.commands;
 
 import lombok.val;
 import org.junit.Test;

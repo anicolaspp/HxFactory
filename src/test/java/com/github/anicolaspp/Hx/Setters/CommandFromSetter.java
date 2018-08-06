@@ -1,7 +1,7 @@
-package io.github.anicolaspp.Hx.Setters;
+package com.github.anicolaspp.Hx.Setters;
 
+import com.github.anicolaspp.Hx.commands.Command;
 import com.netflix.hystrix.HystrixCommandProperties;
-import io.github.anicolaspp.Hx.commands.Command;
 import lombok.val;
 import org.junit.Test;
 

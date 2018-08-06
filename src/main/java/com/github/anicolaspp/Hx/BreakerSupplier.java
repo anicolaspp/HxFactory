@@ -1,4 +1,4 @@
-package io.github.anicolaspp.Hx;
+package com.github.anicolaspp.Hx;
 
 @FunctionalInterface
 public interface BreakerSupplier<T> {

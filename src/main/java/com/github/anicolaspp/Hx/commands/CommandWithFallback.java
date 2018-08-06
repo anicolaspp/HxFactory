@@ -1,6 +1,6 @@
-package io.github.anicolaspp.Hx.commands;
+package com.github.anicolaspp.Hx.commands;
 
-import io.github.anicolaspp.Hx.BreakerSupplier;
+import com.github.anicolaspp.Hx.BreakerSupplier;
 import com.netflix.hystrix.HystrixCommand;
 
 import java.util.function.Supplier;
