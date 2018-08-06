@@ -3,7 +3,7 @@ package io.github.anicolaspp.Hx.commands;
 import io.github.anicolaspp.Hx.BreakerSupplier;
 import io.github.anicolaspp.Hx.RequestContextInitializer;
 
-class CacheCommand<Result> extends SingleCommand<Result>  {
+class CacheCommand<Result> extends SingleCommand<Result> implements RequestContextInitializer {
     
     private final String key;
     
@@ -11,7 +11,7 @@ class CacheCommand<Result> extends SingleCommand<Result>  {
         super(supplier, setter);
         this.key = key;
     
-        RequestContextInitializer.initializeRequestContext();
+        initializeRequestContext();
     }
     
     @Override

@@ -32,8 +32,8 @@ public class CacheCommandTest {
     @Test
     public void testCacheFallback() {
         val command = Command.WithCacheContext.WithCacheKey.create(
+                "someKey",
                 "testCacheFallback",
-                "firstCommand",
                 () -> {
                     throw new RuntimeException("Error");
                 },
@@ -43,12 +43,14 @@ public class CacheCommandTest {
         assert command.execute().equals("fallback");
 
         val secondCommand = Command.WithCacheContext.WithCacheKey.create(
+                "someKey",
                 "testCacheFallback",
-                "secondCommand",
                 () -> "me"
         );
 
-        assert secondCommand.execute().equals("fallback");
+        val result = secondCommand.execute();
+        
+        assert result.equals("fallback");
     }
 }
 
