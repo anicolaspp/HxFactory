@@ -7,6 +7,14 @@ Factory library to create and run Hystrix commands with simplicity
 
 ***HxFactory*** allows us to use Hystrix in the simples way possible.
 
+```maven
+<dependency>
+    <groupId>com.github.anicolaspp</groupId>
+    <artifactId>HxFactory</artifactId>
+    <version>1.0.3</version>
+</dependency>
+```
+
 ## From Hystrix Command to ***HxFactory***
 
 When using Hystrix, we need to define a command for every single interaction with our dependencies. 
