@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>com.simpligility.maven</groupId>
     <artifactId>progressive-organization-pom</artifactId>
@@ -8,7 +9,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.github.anicolaspp</groupId>
+  <groupId>com.github.anicolaspp</groupId>
   <artifactId>HxFactory</artifactId>
   <packaging>jar</packaging>
   <name>HxFactory</name>
@@ -86,7 +87,7 @@
             <format>html</format>
             <format>xml</format>
           </formats>
-          <check />
+          <check/>
         </configuration>
       </plugin>
 
@@ -149,7 +150,7 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.netflix.hystrix</groupId>
@@ -171,5 +172,5 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  
+
 </project>
