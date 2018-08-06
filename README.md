@@ -39,7 +39,7 @@ Using ***HxFactory*** we can reduce this to the following statement
 val command = Command.create(
     "db access", 
     () -> db.run(...)
-    );
+);
 
 command.execute();
 ```
@@ -78,10 +78,7 @@ getUserCommand.execute();
 Using ***HxFactory*** you can simply do
 
 ```java
-val getUserCommand = Command.create(
-    "getUser",
-    () -> db.run(getUserById(id))
-);
+val getUserCommand = Command.create("getUser", () -> db.run(getUserById(id)));
 
 getUserCommand.execute();
 ```
@@ -193,14 +190,14 @@ HystrixCommand<String> command = Command.WithFallback.create(
                         
                         return "";
                     },
-                    () -> "fallback"
+                    () -> "fallback",
                     1000);
             
 assert command.execute().equals("fallback");
 ```
 Notice that the main function will timeout since it blocks for a time (10s) longer than the specified timeout (1s); then the fallback will be executed. 
 
-***HxFactory*** doesn't add anything on top of ***Hystrix*** to everything you expect to work with ***Hystrix*** will work when using ***HxFactory***. This includes circuit breakers, request caching, etc...
+***HxFactory*** doesn't add anything on top of ***Hystrix*** so everything you expect to work with ***Hystrix*** will work when using ***HxFactory***. This includes circuit breakers, request caching, etc...
 
 The following test shows how the circuit breaker works.
 
