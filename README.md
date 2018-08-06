@@ -1,13 +1,13 @@
 # HxFactory
 Factory library to create and run Hystrix commands with simplicity
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/HxFactory/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/HxFactory) [![Build Status](https://travis-ci.org/anicolaspp/HxFactory.svg?branch=master)](https://travis-ci.org/anicolaspp/HxFactory) [![codecov](https://codecov.io/gh/anicolaspp/HxFactory/branch/master/graph/badge.svg)](https://codecov.io/gh/anicolaspp/HxFactory)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/HxFactory/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/HxFactory) [![Build Status](https://travis-ci.org/anicolaspp/HxFactory.svg?branch=master)](https://travis-ci.org/anicolaspp/HxFactory)
 
 > [Hystrix](https://github.com/Netflix/Hystrix)([part of Netflix OSS](https://netflix.github.io/)) is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
 
 ***HxFactory*** allows us to use Hystrix in the simples way possible.
 
-```maven
+```java
 <dependency>
     <groupId>com.github.anicolaspp</groupId>
     <artifactId>HxFactory</artifactId>
