@@ -205,7 +205,7 @@ assert command.execute().equals("fallback");
 ```
 Notice that the main function will timeout since it blocks for a time (10s) longer than the specified timeout (1s); then the fallback will be executed. 
 
-Starting in version 1.0.4, one can define the following key in the configuration using [Lightbend Config](https://github.com/lightbend/config) to define a timeout for everything single command. 
+Starting in version 1.0.4, one can define the following key in the configuration using [Lightbend Config](https://github.com/lightbend/config) to define a timeout for every single command. 
 
 ```conf
 hx.commnds.defaultTimeoutInMilliseconds = 5000
