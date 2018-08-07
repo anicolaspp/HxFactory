@@ -205,6 +205,16 @@ assert command.execute().equals("fallback");
 ```
 Notice that the main function will timeout since it blocks for a time (10s) longer than the specified timeout (1s); then the fallback will be executed. 
 
+Starting in version 1.0.4, one can define the following key in the configuration using [Lightbend Config](https://github.com/lightbend/config) to define a timeout for everything single command. 
+
+```conf
+hx.commnds.defaultTimeoutInMilliseconds = 5000
+```
+
+Notice that if this key is not found in the configuration, then `1s` timeout will be used unless specified at command creation. 
+
+The default timeout value can be overriden by passing a new value when creating the command as the example above. 
+
 ***HxFactory*** doesn't add anything on top of ***Hystrix*** so everything you expect to work with ***Hystrix*** will work when using ***HxFactory***. This includes circuit breakers, request caching, etc...
 
 The following test shows how the circuit breaker works.
