@@ -11,7 +11,7 @@ Factory library to create and run Hystrix commands with simplicity
 <dependency>
     <groupId>com.github.anicolaspp</groupId>
     <artifactId>HxFactory</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
