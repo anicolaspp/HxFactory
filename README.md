@@ -7,7 +7,7 @@ Factory library to create and run Hystrix commands with simplicity
 
 ***HxFactory*** allows us to use Hystrix in the simples way possible.
 
-```java
+```xml
 <dependency>
     <groupId>com.github.anicolaspp</groupId>
     <artifactId>HxFactory</artifactId>
