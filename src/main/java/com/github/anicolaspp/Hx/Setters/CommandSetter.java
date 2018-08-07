@@ -7,7 +7,7 @@ import com.netflix.hystrix.HystrixCommandProperties;
 import lombok.val;
 
 public class CommandSetter {
-    public static Integer defaultTimeoutInMilliseconds = 1000;
+    public static Integer defaultTimeoutInMilliseconds = CommandSetterConfigReader.getDefaultTimeout();
     
     public static HystrixCommand.Setter getSetterFor(String name) {
         return getSetterFor(name, defaultTimeoutInMilliseconds);
@@ -36,3 +36,4 @@ public class CommandSetter {
                 .andCommandPropertiesDefaults(defaultProperties);
     }
 }
+

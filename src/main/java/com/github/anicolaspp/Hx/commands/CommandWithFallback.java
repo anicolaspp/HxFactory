@@ -10,9 +10,7 @@ class CommandWithFallback<Result> extends HystrixCommand<Result> {
     private final BreakerSupplier<Result> supplier;
     private final Supplier<Result> fallback;
     
-    CommandWithFallback(BreakerSupplier<Result> supplier,
-                        Supplier<Result> fallback,
-                        Setter setter) {
+    CommandWithFallback(BreakerSupplier<Result> supplier, Supplier<Result> fallback, Setter setter) {
         super(setter);
         
         this.supplier = supplier;
